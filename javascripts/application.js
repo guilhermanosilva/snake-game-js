@@ -33,6 +33,12 @@ function iniciarJogo() {
 	criarBg()
 	criarCobrinha()
 
+	//Acrescenta movimento infinito da cobrinha dentro do canvas
+	if(snake[0].x > 15 * box && direction == 'right') snake[0].x = 0
+	if(snake[0].y > 15 * box && direction == 'down') snake[0].y = 0
+	if(snake[0].x < 0 && direction == 'left') snake[0].x = 15 * box
+	if(snake[0].y < 0 && direction == 'up') snake[0].y = 15 * box
+
 	let snakeX = snake[0].x
 	let snakeY = snake[0].y
 
@@ -53,4 +59,4 @@ function iniciarJogo() {
 	console.log(snake)
 }
 
-let jogo = setInterval(iniciarJogo, 300)
+let jogo = setInterval(iniciarJogo, 100)
