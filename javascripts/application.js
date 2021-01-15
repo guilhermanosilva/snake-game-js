@@ -2,11 +2,16 @@ let canvas = document.getElementById('snake')
 let context = canvas.getContext("2d")
 let box = 32
 let snake = []
+let direction = 'right'
+let food = {
+	x: Math.floor(Math.random() * 15 + 1) * box,
+	y: Math.floor(Math.random() * 15 + 1) * box
+}
+
 snake[0] = {
 	x: 8 * box,
 	y: 8 * box,
 }
-let direction = 'right'
 
 function criarBg() {
 	context.fillStyle = 'lightgreen'
@@ -18,6 +23,11 @@ function criarCobrinha() {
 		context.fillStyle = 'green'
 		context.fillRect(snake[i].x, snake[i].y, box, box)
 	}
+}
+
+function desenharComida() {
+	context.fillStyle = 'red'
+	context.fillRect(food.x, food.y, box, box)
 }
 
 document.addEventListener('keydown', update)
@@ -32,6 +42,7 @@ function update(event) {
 function iniciarJogo() {
 	criarBg()
 	criarCobrinha()
+	desenharComida()
 
 	//Acrescenta movimento infinito da cobrinha dentro do canvas
 	if(snake[0].x > 15 * box && direction == 'right') snake[0].x = 0
@@ -56,7 +67,9 @@ function iniciarJogo() {
 
 	snake.unshift(newHead)
 
-	console.log(snake)
+	//console.log(snake)
+	console.log(food.x)
+console.log(food.y)
 }
 
-let jogo = setInterval(iniciarJogo, 100)
+let jogo = setInterval(iniciarJogo, 1000)
