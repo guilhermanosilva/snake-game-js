@@ -3,6 +3,7 @@ let context = canvas.getContext("2d")
 let box = 32
 let snake = []
 let direction = 'right'
+
 let food = {
 	x: Math.floor(Math.random() * 15 + 1) * box,
 	y: Math.floor(Math.random() * 15 + 1) * box
@@ -14,19 +15,19 @@ snake[0] = {
 }
 
 function criarBg() {
-	context.fillStyle = 'lightgreen'
+	context.fillStyle = 'lightblue'
 	context.fillRect(0, 0, 16 * box, 16 * box)
 }
 
 function criarCobrinha() {
 	for(let i = 0; i < snake.length; i++) {
-		context.fillStyle = 'green'
+		context.fillStyle = 'blue'
 		context.fillRect(snake[i].x, snake[i].y, box, box)
 	}
 }
 
 function desenharComida() {
-	context.fillStyle = 'red'
+	context.fillStyle = 'grey'
 	context.fillRect(food.x, food.y, box, box)
 }
 
@@ -58,7 +59,14 @@ function iniciarJogo() {
 	if(direction == 'up') snakeY -= box;
 	if(direction == 'down') snakeY += box;
 
-	snake.pop()
+	// verifica se a comeu a comida
+	if(snakeX != food.x || snakeY != food.y){
+		snake.pop()
+	}
+	else{
+		food.x = Math.floor(Math.random() * 15 + 1) * box
+		food.y = Math.floor(Math.random() * 15 + 1) * box
+	}
 
 	let newHead = {
 		x: snakeX,
@@ -67,9 +75,7 @@ function iniciarJogo() {
 
 	snake.unshift(newHead)
 
-	//console.log(snake)
-	console.log(food.x)
-console.log(food.y)
+	console.log(snake)
 }
 
-let jogo = setInterval(iniciarJogo, 1000)
+let jogo = setInterval(iniciarJogo, 150)
