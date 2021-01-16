@@ -59,6 +59,14 @@ function iniciarJogo() {
 	if(direction == 'up') snakeY -= box;
 	if(direction == 'down') snakeY += box;
 
+	// verifica se ouve colisão da cobrinha com ela mesma
+	for(let i = 1; i < snake.length; i++) {
+		if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
+			clearInterval(jogo)
+			alert('Game Over :(')
+		}
+	}
+
 	// verifica se a comeu a comida
 	if(snakeX != food.x || snakeY != food.y){
 		snake.pop()
