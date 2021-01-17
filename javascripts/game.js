@@ -90,6 +90,33 @@ let jogo = setInterval(iniciarJogo, 150)
 // Verfica se o jogardor perdeu
 function gameOver(gamOver){
 	if(gameOver){
-		alert("Que pena, você perdeu!!!")
+		let telaGameOver = document.getElementById("gameOver")
+		telaGameOver.style.visibility = "visible"
+	}
+}
+
+// Verifica se ira jogar novamente
+function newGame(element) {
+	if(element.id == "sim") {
+		let telaGameOver = document.getElementById("gameOver")
+		telaGameOver.style.visibility = "hidden"
+
+		snake.splice(0)
+
+		snake[0] = {
+			x: 8 * box,
+			y: 8 * box,
+		}
+
+		food.x = Math.floor(Math.random() * 15 + 1) * box
+		food.y = Math.floor(Math.random() * 15 + 1) * box
+
+		direction = 'right'
+
+		jogo = setInterval(iniciarJogo, 150)
+		
+	}
+	else{
+		alert('Obrigado por jogar. Volte outra hora.')
 	}
 }
