@@ -4,11 +4,34 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Snake Game</title>
-	<script src="javascripts/application.js" type="text/javascript" charset="utf-8" async defer></script>
+	<link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
-	<canvas id="snake" width="512" height="512">
-		
-	</canvas>
+	<section class="game">
+		<header class="header">
+			<h1>Snake Game</h1>
+		</header>
+		<main>
+			<canvas id="snake" width="512" height="512"></canvas>
+		</main>
+	</section>	
+
+	<div class="container">
+		<section class="game-over">
+			<header class="header">
+				<h1>Game Over!!!</h1>
+			</header>
+			<main>
+				<h4>Deseja jogar outra partida?</h4>
+				<div class="botoes">
+					<span id="sim" class="botao">Sim</span>
+					<span id="nao" class="botao">Não</span>
+				</div>
+			</main>
+		</section>
+	</div>
+	
+	<script src="javascripts/game.js" type="text/javascript" charset="utf-8"></script>
+	<script src="javascripts/application.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
