@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+:root{
+	--black: #050509;
+	--blue: #1c2c54;
+	--blue-dark: #101020;
+	--green: #4bc3b5;
+	--pink: #d175b7;
+	--white: #d5d5d5;
+
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	font-family: 'Fredoka One', cursive;
+	background-color: var(--black);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.game{
+	height: 95vh;
+	width: 95vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.game .header h1{
+	color: var(--white);
+	font-size: 2.5em;
+	margin-bottom: 20px;
+}
+
+/*Game over*/
+.container{
+	width: 100vw;
+	height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 99;
+
+	background-color: rgba(0, 0, 0, 0.9);
+}
+
+.game-over{
+	padding: 40px;
+	border-radius: 8px;
+	background: var(--blue-dark);
+	color: var(--white);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.game-over .header h1 {
+	font-size: 3em;
+	letter-spacing: 0.05em;
+	margin-bottom: 40px;
+}
+
+
+.game-over main h4 {
+	font-size: 1.4em;
+	margin-bottom: 20px;
+	letter-spacing: 0.05em;
+	padding-bottom: 20px;
+}
+
+.game-over .botoes {
+	width: 100%;
+	padding: 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+
+.game-over .botao {
+	background-color: var(--green);
+	width: 120px;
+	padding: 8px 16px;
+	color: var(--blue-dark);
+	font-size: 1.4em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #00000000;
+	border-radius: 6px;
+}
+
+.game-over .botao:hover {
+	cursor: pointer;
+	background: var(--pink);
+	border: 2px solid var(--white);
+	box-shadow: 2px 2px 5px var(--black);
+}
