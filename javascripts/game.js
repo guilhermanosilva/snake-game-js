@@ -3,6 +3,12 @@ let context = canvas.getContext("2d")
 let box = 32
 let snake = []
 let direction = 'right'
+let timer = 200
+let countFood = 0
+
+let points = 0
+let pointMutiples = 1
+
 let food = {
 	x: Math.floor(Math.random() * 15 + 1) * box,
 	y: Math.floor(Math.random() * 15 + 1) * box
@@ -32,6 +38,23 @@ function drawFood() {
 
 document.addEventListener('keydown', update)
 
+// Adds points
+function addPoint(){
+	if(points >=  5) pointMutiples = 2 
+	if(points >= 15) pointMutiples = 3
+	if(points >= 30) pointMutiples = 4
+	if(points >= 50) pointMutiples = 5
+	if(points >= 75) pointMutiples = 6
+	if(points >= 105) pointMutiples = 7
+	if(points >= 140) pointMutiples = 8
+	if(points >= 180) pointMutiples = 9
+	if(points >= 225) pointMutiples = 10
+
+	points = points + pointMutiples 
+	console.log(points)
+}
+
+
 // Update direction
 function update(event) {
 	if(event.keyCode == 37 && direction != 'right') direction = 'left'
@@ -39,6 +62,7 @@ function update(event) {
 	if(event.keyCode == 39 && direction != 'left') direction = 'right'
 	if(event.keyCode == 40 && direction != 'up') direction = 'down'
 }
+let jogo = setInterval(playGame, timer)
 
 function playGame() {
 
@@ -60,7 +84,6 @@ function playGame() {
 	createSnake()
 	drawFood()
 
-
 	// checks for hears collision
 	for(let i = 1; i < snake.length; i++) {
 		if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
@@ -74,8 +97,14 @@ function playGame() {
 		snake.pop()
 	}
 	else{
+		// moviment food
 		food.x = Math.floor(Math.random() * 15 + 1) * box
 		food.y = Math.floor(Math.random() * 15 + 1) * box
+
+		addPoint()
+		countFood += 1
+		document.getElementById('point').innerText = points
+		document.getElementById('multiple').innerText = `${pointMutiples} x`
 	}
 
 	let newHead = {
@@ -86,9 +115,6 @@ function playGame() {
 	snake.unshift(newHead)
 
 }
-
-let jogo = setInterval(playGame, 500)
-
 
 // checks if you lost the match
 function gameOver(gamOver){
@@ -105,18 +131,24 @@ function newGame(element) {
 		telaGameOver.style.visibility = "hidden"
 
 		snake.splice(0)
+		direction = 'right'
+		countFood = 0
+		points = 0
+		pointMutiples = 1
+
+		document.getElementById('point').innerText = points
+		document.getElementById('multiple').innerText = `${pointMutiples} x`
 
 		snake[0] = {
 			x: 8 * box,
 			y: 8 * box,
 		}
 
+
 		food.x = Math.floor(Math.random() * 15 + 1) * box
 		food.y = Math.floor(Math.random() * 15 + 1) * box
-
-		direction = 'right'
-
-		jogo = setInterval(playGame, 150)
+		
+		jogo = setInterval(playGame, timer)
 	}
 	else{
 		alert('Obrigado por jogar. Volte outra hora.')

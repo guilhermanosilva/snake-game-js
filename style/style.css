@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
 :root{
-	--black: #050509;
 	--blue: #1c2c54;
 	--blue-dark: #101020;
 	--green: #4bc3b5;
+	--green-light: #6de5d7;
 	--pink: #d175b7;
 	--white: #d5d5d5;
-
+	--grey: #b5b5b5;
 }
 
 *{
@@ -18,11 +18,19 @@
 
 body{
 	font-family: 'Fredoka One', cursive;
-	background-color: var(--black);
+	background-color: var(--blue);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+#snake {
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.container-game {
+	display: flex;
 }
 
 .game{
@@ -38,6 +46,48 @@ body{
 	color: var(--white);
 	font-size: 2.5em;
 	margin-bottom: 20px;
+}
+
+/*Points*/
+.container-points {
+	height: 35%;
+	color: var(--grey);
+	margin-left: 20px;
+	padding: 20px;
+	border: 1px solid var(--blue-dark);
+	border-radius: 6px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.container-points h4{
+	font-size: 1.4em;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	color: var(--white);
+	letter-spacing: 1.2px;
+	border-bottom: 2px solid var(--blue-dark);
+}
+
+.container-points #punctuation{
+	width: 100%;
+}
+
+.container-points #punctuation p{
+	margin-top: 10px;
+	font-size: 1.2em;
+	/*color: var(--blue-dark);*/
+}
+
+.container-points #point {
+	color: var(--green-light);
+}
+
+.container-points #multiple{
+	color: var(--pink);
 }
 
 /*Game over*/
