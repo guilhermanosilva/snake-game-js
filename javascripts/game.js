@@ -3,7 +3,6 @@ let context = canvas.getContext("2d")
 let box = 32
 let snake = []
 let direction = 'right'
-
 let food = {
 	x: Math.floor(Math.random() * 15 + 1) * box,
 	y: Math.floor(Math.random() * 15 + 1) * box
@@ -14,25 +13,26 @@ snake[0] = {
 	y: 8 * box,
 }
 
-function criarBg() {
+function createBg() {
 	context.fillStyle = '#101020'
 	context.fillRect(0, 0, 16 * box, 16 * box)
 }
 
-function criarCobrinha() {
+function createSnake() {
 	for(let i = 0; i < snake.length; i++) {
 		context.fillStyle = '#4bc3b5'
 		context.fillRect(snake[i].x, snake[i].y, box, box)
 	}
 }
 
-function desenharComida() {
+function drawFood() {
 	context.fillStyle = '#d175b7'
 	context.fillRect(food.x, food.y, box, box)
 }
 
 document.addEventListener('keydown', update)
 
+// Update direction
 function update(event) {
 	if(event.keyCode == 37 && direction != 'right') direction = 'left'
 	if(event.keyCode == 38 && direction != 'down') direction = 'up'
@@ -40,17 +40,9 @@ function update(event) {
 	if(event.keyCode == 40 && direction != 'up') direction = 'down'
 }
 
-function iniciarJogo() {
-	criarBg()
-	criarCobrinha()
-	desenharComida()
+function playGame() {
 
-	//Acrescenta movimento infinito da cobrinha dentro do canvas
-	if(snake[0].x > 15 * box && direction == 'right') snake[0].x = 0
-	if(snake[0].y > 15 * box && direction == 'down') snake[0].y = 0
-	if(snake[0].x < 0 && direction == 'left') snake[0].x = 15 * box
-	if(snake[0].y < 0 && direction == 'up') snake[0].y = 15 * box
-
+	// Adds directional movement
 	let snakeX = snake[0].x
 	let snakeY = snake[0].y
 
@@ -59,7 +51,17 @@ function iniciarJogo() {
 	if(direction == 'up') snakeY -= box;
 	if(direction == 'down') snakeY += box;
 
-	// verifica se ouve colisão da cobrinha com ela mesma
+	if(snakeX > 15 * box && direction == 'right') snakeX = 0
+	if(snakeY > 15 * box && direction == 'down') snakeY = 0
+	if(snakeX < 0 * box && direction == 'left') snakeX = 15 * box
+	if(snakeY < 0 * box && direction == 'up') snakeY = 15 * box
+
+	createBg()
+	createSnake()
+	drawFood()
+
+
+	// checks for hears collision
 	for(let i = 1; i < snake.length; i++) {
 		if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
 			gameOver(true)
@@ -67,7 +69,7 @@ function iniciarJogo() {
 		}
 	}
 
-	// verifica se a comeu a comida
+	// check if you ate the food
 	if(snakeX != food.x || snakeY != food.y){
 		snake.pop()
 	}
@@ -82,12 +84,13 @@ function iniciarJogo() {
 	}
 
 	snake.unshift(newHead)
+
 }
 
-let jogo = setInterval(iniciarJogo, 150)
+let jogo = setInterval(playGame, 500)
 
 
-// Verfica se o jogardor perdeu
+// checks if you lost the match
 function gameOver(gamOver){
 	if(gameOver){
 		let telaGameOver = document.getElementById("gameOver")
@@ -95,7 +98,7 @@ function gameOver(gamOver){
 	}
 }
 
-// Verifica se ira jogar novamente
+// check if it will play again
 function newGame(element) {
 	if(element.id == "sim") {
 		let telaGameOver = document.getElementById("gameOver")
@@ -113,8 +116,7 @@ function newGame(element) {
 
 		direction = 'right'
 
-		jogo = setInterval(iniciarJogo, 150)
-		
+		jogo = setInterval(playGame, 150)
 	}
 	else{
 		alert('Obrigado por jogar. Volte outra hora.')
