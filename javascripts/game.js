@@ -3,7 +3,7 @@ let context = canvas.getContext("2d")
 let box = 32
 let snake = []
 let direction = 'right'
-let timer = 200
+let timer = 150
 let countFood = 0
 
 let points = 0
@@ -51,7 +51,7 @@ function addPoint(){
 	if(points >= 225) pointMutiples = 10
 
 	points = points + pointMutiples 
-	console.log(points)
+	// console.log(points)
 }
 
 
@@ -62,10 +62,15 @@ function update(event) {
 	if(event.keyCode == 39 && direction != 'left') direction = 'right'
 	if(event.keyCode == 40 && direction != 'up') direction = 'down'
 }
+
+function radomFood(){
+	food.x = Math.floor(Math.random() * 15 + 1) * box
+	food.y = Math.floor(Math.random() * 15 + 1) * box
+}
+
 let jogo = setInterval(playGame, timer)
 
 function playGame() {
-
 	// Adds directional movement
 	let snakeX = snake[0].x
 	let snakeY = snake[0].y
@@ -97,9 +102,14 @@ function playGame() {
 		snake.pop()
 	}
 	else{
-		// moviment food
-		food.x = Math.floor(Math.random() * 15 + 1) * box
-		food.y = Math.floor(Math.random() * 15 + 1) * box
+		radomFood()
+
+		// changes the position of the food if it is on the snake
+		for(let i = 0; i < snake.length; i++){
+			while(food.x == snake[i].x && food.y == snake[i].y){
+				radomFood()
+			}
+		}
 
 		addPoint()
 		countFood += 1
@@ -143,7 +153,6 @@ function newGame(element) {
 			x: 8 * box,
 			y: 8 * box,
 		}
-
 
 		food.x = Math.floor(Math.random() * 15 + 1) * box
 		food.y = Math.floor(Math.random() * 15 + 1) * box
