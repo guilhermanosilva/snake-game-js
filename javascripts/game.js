@@ -1,14 +1,19 @@
+/*DOM elements*/
 let canvas = document.getElementById('snake')
+let documentPoint = document.getElementById('point')
 let context = canvas.getContext("2d")
+
+/*Variable*/
 let box = 32
-let snake = []
-let direction = 'right'
 let timer = 150
 let countFood = 0
-
+let direction = 'right'
 let points = 0
 let pointMutiples = 1
-
+let play = null
+let game = JSON.parse(localStorage.getItem('game')) || []
+let numberGame = 1
+let snake = []
 let food = {
 	x: Math.floor(Math.random() * 15 + 1) * box,
 	y: Math.floor(Math.random() * 15 + 1) * box
@@ -19,6 +24,15 @@ snake[0] = {
 	y: 8 * box,
 }
 
+if(game.length > 0){
+	numberGame = game[game.length - 1].numberGame + 1
+}
+
+play = setInterval(playGame, timer)	
+
+/*
+	Drawing functions
+*/
 function createBg() {
 	context.fillStyle = '#101020'
 	context.fillRect(0, 0, 16 * box, 16 * box)
@@ -36,24 +50,29 @@ function drawFood() {
 	context.fillRect(food.x, food.y, box, box)
 }
 
+/*
+	Events
+*/
 document.addEventListener('keydown', update)
 
-// Adds points
+window.addEventListener('load', listPoints)
+
+document.getElementById('clearPoints').addEventListener('click', () => {
+	localStorage.clear()
+	window.location.reload(true)
+})
+
+/*
+	Functions
+*/
 function addPoint(){
-	if(points >=  5) pointMutiples = 2 
-	if(points >= 15) pointMutiples = 3
-	if(points >= 30) pointMutiples = 4
-	if(points >= 50) pointMutiples = 5
-	if(points >= 75) pointMutiples = 6
-	if(points >= 105) pointMutiples = 7
-	if(points >= 140) pointMutiples = 8
-	if(points >= 180) pointMutiples = 9
-	if(points >= 225) pointMutiples = 10
+	let restPoints = points % 5
+	if(points > 0 && restPoints == 0){
+		pointMutiples++
+	}
 
 	points = points + pointMutiples 
-	// console.log(points)
 }
-
 
 // Update direction
 function update(event) {
@@ -68,7 +87,17 @@ function radomFood(){
 	food.y = Math.floor(Math.random() * 15 + 1) * box
 }
 
-let jogo = setInterval(playGame, timer)
+function listPoints() {
+	let punctuation = document.getElementById('punctuation')
+	punctuation.innerHTML = ''
+
+	for(let viewPoint of game){
+		let p = document.createElement('p')
+		p.classList = 'point-list'
+		p.innerHTML = `<span class='number-game'>#${viewPoint.numberGame}:</span> <span>${viewPoint.points} pts</span>`
+		punctuation.appendChild(p)
+	}
+}
 
 function playGame() {
 	// Adds directional movement
@@ -93,7 +122,7 @@ function playGame() {
 	for(let i = 1; i < snake.length; i++) {
 		if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
 			gameOver(true)
-			clearInterval(jogo)
+			clearInterval(play)
 		}
 	}
 
@@ -113,8 +142,8 @@ function playGame() {
 
 		addPoint()
 		countFood += 1
-		document.getElementById('point').innerText = points
-		document.getElementById('multiple').innerText = `${pointMutiples} x`
+		documentPoint.innerText = points
+		document.getElementById('multiple').innerText = `${pointMutiples} X`
 	}
 
 	let newHead = {
@@ -131,22 +160,39 @@ function gameOver(gamOver){
 	if(gameOver){
 		let telaGameOver = document.getElementById("gameOver")
 		telaGameOver.style.visibility = "visible"
+
+		let currentGame = {
+			game,
+			points
+		}
 	}
 }
 
 // check if it will play again
 function newGame(element) {
 	if(element.id == "sim") {
+		let gamePlay = {
+			numberGame,
+			points
+		}
+
+		game.push(gamePlay)
+
+		localStorage.setItem(`game`, JSON.stringify(game))
+
 		let telaGameOver = document.getElementById("gameOver")
 		telaGameOver.style.visibility = "hidden"
+
+		listPoints()
 
 		snake.splice(0)
 		direction = 'right'
 		countFood = 0
 		points = 0
 		pointMutiples = 1
+		numberGame++
 
-		document.getElementById('point').innerText = points
+		documentPoint.innerText = points
 		document.getElementById('multiple').innerText = `${pointMutiples} x`
 
 		snake[0] = {
@@ -157,7 +203,7 @@ function newGame(element) {
 		food.x = Math.floor(Math.random() * 15 + 1) * box
 		food.y = Math.floor(Math.random() * 15 + 1) * box
 		
-		jogo = setInterval(playGame, timer)
+		play = setInterval(playGame, timer)
 	}
 	else{
 		alert('Obrigado por jogar. Volte outra hora.')
