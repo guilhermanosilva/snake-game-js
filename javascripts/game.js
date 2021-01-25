@@ -203,6 +203,7 @@ function newGame(element) {
 		countFood = 0
 		points = 0
 		pointMutiples = 1
+		timer = 200
 		numberGame++
 
 		documentPoint.innerText = points
