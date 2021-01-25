@@ -5,7 +5,7 @@ let context = canvas.getContext("2d")
 
 /*Variable*/
 let box = 32
-let timer = 150
+let timer = 200
 let countFood = 0
 let direction = 'right'
 let points = 0
@@ -72,6 +72,17 @@ function addPoint(){
 	}
 
 	points = points + pointMutiples 
+
+}
+
+function speed(){
+	let restCountFood = countFood % 5
+	if(countFood > 0 && restCountFood == 0){
+		clearInterval(play)
+		timer = timer - 10
+		play = setInterval(playGame, timer)
+		console.log(timer)
+	}
 }
 
 // Update direction
@@ -141,7 +152,10 @@ function playGame() {
 		}
 
 		addPoint()
+		
 		countFood += 1
+		speed()
+
 		documentPoint.innerText = points
 		document.getElementById('multiple').innerText = `${pointMutiples} X`
 	}
@@ -152,7 +166,6 @@ function playGame() {
 	}
 
 	snake.unshift(newHead)
-
 }
 
 // checks if you lost the match
