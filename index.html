@@ -17,12 +17,20 @@
 			<!-- Points -->
 			<section class="container-points">
 				<h4>Pontuação</h4>
-				<div id="punctuation">
-					<p>Combo: <span id="multiple">1 x</span></p>
-					<p>Pontos: <span id='point'>0</span></p>
+				<div class="current-data">Combo: <span id="multiple">1 x</span></div>
+				<div class="current-data">Pontos: <span id='point'>0</span></div>
+				<div id="pointPanel">
+					<div id="punctuation"></div>
+					<button id="clearPoints">zerar pontos</button>
 				</div>
 			</section>
 		</main>
+	</section>
+
+	<section class="painel-difficulty">
+		<div id="easy" class="difficulty">Fácil</div>
+		<div id="normal" class="difficulty selected-difficulty">Normal</div>
+		<div id="hard" class="difficulty">Difícil</div>
 	</section>
 
 	<!-- Modal Game Over -->

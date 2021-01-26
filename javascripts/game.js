@@ -2,6 +2,11 @@
 let canvas = document.getElementById('snake')
 let documentPoint = document.getElementById('point')
 let context = canvas.getContext("2d")
+let telaGameOver = document.getElementById("gameOver")
+let difficulty = document.querySelectorAll('.difficulty')
+
+		console.log(difficulty[1])
+
 
 /*Variable*/
 let box = 32
@@ -62,9 +67,47 @@ document.getElementById('clearPoints').addEventListener('click', () => {
 	window.location.reload(true)
 })
 
+// Selected difficulty
+for(let level of difficulty){
+	level.addEventListener('click',(e)=>{
+		clearDifficulty()
+		if(level.classList[1] != 'selected-difficulty'){
+			level.classList.add('selected-difficulty')
+			console.log(e.target)
+
+			if(e.target.id == 'hard'){
+				clearInterval(play)
+				timer = 150
+				play = setInterval(playGame, timer)
+//				window.location.reload(true)
+			}
+
+			if(e.target.id == 'normal'){
+				clearInterval(play)
+				timer = 200
+				play = setInterval(playGame, timer)
+//				window.location.reload(true)
+			}
+			
+			if(e.target.id == 'easy'){
+				clearInterval(play)
+				timer = 300
+				play = setInterval(playGame, timer)
+//				window.location.reload(true)
+			}
+			console.log(timer)
+		}
+	})
+}
+
 /*
 	Functions
 */
+
+function clearDifficulty(){
+	for(let div of difficulty){div.classList.remove('selected-difficulty')}
+}
+
 function addPoint(){
 	let restPoints = points % 5
 	if(points > 0 && restPoints == 0){
@@ -193,10 +236,11 @@ function newGame(element) {
 
 		localStorage.setItem(`game`, JSON.stringify(game))
 
-		let telaGameOver = document.getElementById("gameOver")
 		telaGameOver.style.visibility = "hidden"
 
 		listPoints()
+		clearDifficulty()
+
 
 		snake.splice(0)
 		direction = 'right'
@@ -204,6 +248,7 @@ function newGame(element) {
 		points = 0
 		pointMutiples = 1
 		timer = 200
+		difficulty[1].classList.add('selected-difficulty')
 		numberGame++
 
 		documentPoint.innerText = points
