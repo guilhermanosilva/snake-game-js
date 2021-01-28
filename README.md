@@ -5,6 +5,8 @@ O Snake Game teve a base de seu código desenvolvido no bootcamp HTML Web Develo
 
 Snake Game é um jogo desenvolvido apenas com javasript, html e css. O objeto do módulo é ensinar a usar os conceitos básicos do javascript na manipulação do DOM utilizando o canvas para desenhar o jogo.
 
+**[Quero jogar agora!](https://guilhermanosilva.github.io/snake-game-js/)**
+
 ## Minha contribuição ao projeto
 
 - Modal e ações dos botões da tela de game over;
@@ -25,5 +27,7 @@ Snake Game é um jogo desenvolvido apenas com javasript, html e css. O objeto do
 * **javascript**
 
 <img src="https://raw.githubusercontent.com/guilhermanosilva/snake-game-js/main/github/snake-game-code.png"  width="500"/>
+
+**[Quero jogar agora!](https://guilhermanosilva.github.io/snake-game-js/)**
 
 ##### FIM
