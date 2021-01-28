@@ -2,7 +2,7 @@
 let canvas = document.getElementById('snake')
 let documentPoint = document.getElementById('point')
 let context = canvas.getContext("2d")
-let telaGameOver = document.getElementById("gameOver")
+let gameOverLayer = document.getElementById("gameOver")
 let difficulty = document.querySelectorAll('.difficulty')
 
 		console.log(difficulty[1])
@@ -71,31 +71,27 @@ document.getElementById('clearPoints').addEventListener('click', () => {
 for(let level of difficulty){
 	level.addEventListener('click',(e)=>{
 		clearDifficulty()
+		
 		if(level.classList[1] != 'selected-difficulty'){
 			level.classList.add('selected-difficulty')
-			console.log(e.target)
 
 			if(e.target.id == 'hard'){
 				clearInterval(play)
 				timer = 150
 				play = setInterval(playGame, timer)
-//				window.location.reload(true)
 			}
 
 			if(e.target.id == 'normal'){
 				clearInterval(play)
 				timer = 200
 				play = setInterval(playGame, timer)
-//				window.location.reload(true)
 			}
 			
 			if(e.target.id == 'easy'){
 				clearInterval(play)
 				timer = 300
 				play = setInterval(playGame, timer)
-//				window.location.reload(true)
 			}
-			console.log(timer)
 		}
 	})
 }
@@ -105,7 +101,9 @@ for(let level of difficulty){
 */
 
 function clearDifficulty(){
-	for(let div of difficulty){div.classList.remove('selected-difficulty')}
+	for(let div of difficulty){
+		div.classList.remove('selected-difficulty')
+	}
 }
 
 function addPoint(){
@@ -115,7 +113,6 @@ function addPoint(){
 	}
 
 	points = points + pointMutiples 
-
 }
 
 function speed(){
@@ -214,8 +211,8 @@ function playGame() {
 // checks if you lost the match
 function gameOver(gamOver){
 	if(gameOver){
-		let telaGameOver = document.getElementById("gameOver")
-		telaGameOver.style.visibility = "visible"
+		let gameOverLayer = document.getElementById("gameOver")
+		gameOverLayer.style.visibility = "visible"
 
 		let currentGame = {
 			game,
@@ -236,11 +233,10 @@ function newGame(element) {
 
 		localStorage.setItem(`game`, JSON.stringify(game))
 
-		telaGameOver.style.visibility = "hidden"
+		gameOverLayer.style.visibility = "hidden"
 
 		listPoints()
 		clearDifficulty()
-
 
 		snake.splice(0)
 		direction = 'right'
