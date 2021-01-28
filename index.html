@@ -7,12 +7,13 @@
 	<link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body>
+	<div class="container-view">
 	<!-- Game Board -->
 	<section class="game">
 		<header class="header">
 			<h1>Snake Game</h1>
 		</header>
-		<main class="container-game">
+		<main class="container-canvas-points">
 			<canvas id="snake" width="512" height="512"></canvas>
 			<!-- Points -->
 			<section class="container-points">
@@ -32,6 +33,7 @@
 		<div id="normal" class="difficulty selected-difficulty">Normal</div>
 		<div id="hard" class="difficulty">Difícil</div>
 	</section>
+	<div>
 
 	<!-- Modal Game Over -->
 	<div id="gameOver" class="container">

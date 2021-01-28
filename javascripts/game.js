@@ -9,7 +9,7 @@ let difficulty = document.querySelectorAll('.difficulty')
 
 
 /*Variable*/
-let box = 32
+let box = 32;
 let timer = 200
 let countFood = 0
 let direction = 'right'
@@ -187,6 +187,11 @@ function playGame() {
 		// changes the position of the food if it is on the snake
 		for(let i = 0; i < snake.length; i++){
 			while(food.x == snake[i].x && food.y == snake[i].y){
+				// uncommon to see the food on top of the snake
+				/*
+				context.fillStyle = 'orange'
+				context.fillRect(food.x, food.y, box, box)
+				*/
 				radomFood()
 			}
 		}
